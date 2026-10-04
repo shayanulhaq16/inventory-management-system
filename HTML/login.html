@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Pro - Log In</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+    <!-- Clean Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="signup-container">
+        <!-- Header -->
+        <div class="signup-header">
+            <div class="brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Log in to manage your inventory.</p>
+        </div>
+
+        <!-- Login Form -->
+        <form class="signup-form" id="loginForm">
+            <!-- Email Address -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="name@company.com" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <div class="label-wrapper">
+                    <label for="password">Password</label>
+                    <a href="../HTML/forgetpassword.html" class="forgot-link">Forgot?</a>
+                </div>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <!-- Remember Me Checkbox -->
+            <div class="form-checkbox">
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Log In</button>
+        </form>
+
+        <!-- Footer -->
+        <div class="signup-footer">
+            <p>Don't have an account? <a href="../index.html">Sign Up</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Pro - Reset Password</title>
+    <link rel="stylesheet" href="../CSS/resetpassword.css">
+    <!-- Clean Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="signup-container">
+        <!-- Header -->
+        <div class="signup-header">
+            <div class="brand-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+            </div>
+            <h2>Set New Password</h2>
+            <p>Your new password must be different from previous passwords.</p>
+        </div>
+
+        <!-- Reset Password Form -->
+        <form class="signup-form" id="resetPasswordForm">
+            <!-- New Password -->
+            <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" placeholder="At least 8 characters" required>
+            </div>
+
+            <!-- Confirm New Password -->
+            <div class="form-group">
+                <label for="confirmNewPassword">Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Re-enter new password" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Reset Password</button>
+        </form>
+
+        <!-- Footer -->
+        <div class="signup-footer">
+            <p>Back to <a href="login.html">Log In</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
