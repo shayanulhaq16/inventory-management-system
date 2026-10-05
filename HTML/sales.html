@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Pro - Sales</title>
+    <link rel="stylesheet" href="../CSS/sales.css">
+    <!-- Clean Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- NEW SALE FULL-SCREEN MODAL -->
+<div class="modal-overlay" id="salesModal">
+    <div class="modal-container">
+        
+        <div class="modal-header">
+            <div>
+                <h2>Record New Sale</h2>
+                <p>Enter customer purchase details to update inventory revenue.</p>
+            </div>
+            <button class="modal-close-btn" id="closeSalesModal">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+
+        <form class="modal-form" id="salesForm">
+            <div class="form-grid">
+                
+                <!-- Customer Name -->
+                <div class="form-group">
+                    <label for="customerName">Customer Name</label>
+                    <input type="text" id="customerName" placeholder="e.g. Ali Khan" required>
+                </div>
+
+                <!-- Invoice Number -->
+                <div class="form-group">
+                    <label for="invoiceNo">Invoice Number</label>
+                    <input type="text" id="invoiceNo" placeholder="e.g. #INV-1022" required>
+                </div>
+
+                <!-- Select Item -->
+                <div class="form-group full-width">
+                    <label for="saleItem">Select Product</label>
+                    <select id="saleItem" required>
+                        <option value="" disabled selected>Choose product from stock</option>
+                        <option value="1">Wireless Ergonomic Mouse (Available: 45)</option>
+                        <option value="2">Mechanical Keyboard RGB (Available: 5)</option>
+                    </select>
+                </div>
+
+                <!-- Sold Quantity -->
+                <div class="form-group">
+                    <label for="saleQty">Quantity Sold</label>
+                    <input type="number" id="saleQty" placeholder="e.g. 2" required>
+                </div>
+
+                <!-- Total Amount -->
+                <div class="form-group">
+                    <label for="saleTotal">Total Amount ($)</label>
+                    <input type="number" id="saleTotal" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <!-- Sale Status -->
+                <div class="form-group full-width">
+                    <label for="saleStatus">Payment Status</label>
+                    <select id="saleStatus" required>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancelSalesBtn">Cancel</button>
+                <button type="submit" class="btn-sales-modal">Confirm Sale</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+    <div class="app-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <h2>Inventory Pro</h2>
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="dashboard.html" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="stocks.html" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span>Stock</span>
+                </a>
+                <a href="sales.html" class="menu-item active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <span>Sales</span>
+                </a>
+                <a href="purchases.html" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 16l3-8 3 8c-.87.06-1.92.21-3 .57-1.08-.36-2.13-.51-3-.57z"></path><path d="M2 16l3-8 3 8c-.87.06-1.92.21-3 .57-1.08-.36-2.13-.51-3-.57z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path></svg>
+                    <span>Purchase</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="login.html" class="logout-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+            
+            <!-- TOP BAR -->
+            <header class="topbar">
+                <div class="search-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search sales invoice, customer, or product...">
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="user-profile">
+                        <div class="avatar">S</div>
+                        <div class="user-info">
+                            <span class="name">Shayan</span>
+                            <span class="role">Admin</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- SALES BODY -->
+            <div class="content-body">
+                
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div>
+                        <h1>Sales Management</h1>
+                        <p>View all sales transactions, record new sales, and track revenue.</p>
+                    </div>
+                    <button class="btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        New Sale
+                    </button>
+                </div>
+
+                <!-- STATS CARDS GRID -->
+                <div class="stats-grid">
+                    <!-- Total Revenue -->
+                    <div class="stat-card">
+                        <div class="stat-icon icon-green">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Total Revenue</span>
+                            <h3 class="value">$18,240</h3>
+                        </div>
+                    </div>
+
+                    <!-- Total Orders -->
+                    <div class="stat-card">
+                        <div class="stat-icon icon-blue">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Total Orders</span>
+                            <h3 class="value">142 <span class="unit">Sales</span></h3>
+                        </div>
+                    </div>
+
+                    <!-- Avg Sale Value -->
+                    <div class="stat-card">
+                        <div class="stat-icon icon-amber">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                        </div>
+                        <div class="stat-info">
+                            <span class="label">Avg. Order Value</span>
+                            <h3 class="value">$128.45</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SALES HISTORY TABLE -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h2>Sales History</h2>
+                        <div class="table-actions">
+                            <select class="filter-select">
+                                <option value="all">All Statuses</option>
+                                <option value="completed">Completed</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice ID</th>
+                                <th>Customer</th>
+                                <th>Item Sold</th>
+                                <th>Qty</th>
+                                <th>Total Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="sku-code">#INV-1021</td>
+                                <td class="product-name"><strong>Ali Khan</strong></td>
+                                <td>Wireless Mouse</td>
+                                <td>2</td>
+                                <td><strong>$59.98</strong></td>
+                                <td>Oct 04, 2026</td>
+                                <td><span class="badge status-completed">Completed</span></td>
+                                <td class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sku-code">#INV-1020</td>
+                                <td class="product-name"><strong>Usman Raza</strong></td>
+                                <td>Mechanical Keyboard</td>
+                                <td>1</td>
+                                <td><strong>$89.50</strong></td>
+                                <td>Oct 03, 2026</td>
+                                <td><span class="badge status-completed">Completed</span></td>
+                                <td class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sku-code">#INV-1019</td>
+                                <td class="product-name"><strong>Hamza Tech Store</strong></td>
+                                <td>USB-C Hub</td>
+                                <td>5</td>
+                                <td><strong>$170.00</strong></td>
+                                <td>Oct 02, 2026</td>
+                                <td><span class="badge status-pending">Pending</span></td>
+                                <td class="action-buttons">
+                                    <button class="btn-icon" title="View Details">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>
