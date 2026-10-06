@@ -30,7 +30,7 @@ const itemPrice = document.getElementById("itemPrice");
 const itemQuantity = document.getElementById("itemQuantity");
 const itemStatus =  document.getElementById("itemStatus");
 
-const conformModalBtn = document.querySelector(".btn-primary-modal");
+const saveItemBtn = document.querySelector(".btn-primary-modal");
 
 
 
@@ -61,12 +61,12 @@ const inserterdataInArray = () => {
     
     closer_module();
 
-    itemName.value = "";
-    itemSku.value = "";
-    itemCategory.value = "";
-    itemPrice.value = "";
-    itemQuantity.value = "";
-    itemStatus.value = "";
+    // itemName.value = "";
+    // itemSku.value = "";
+    // itemCategory.value = "";
+    // itemPrice.value = "";
+    // itemQuantity.value = "";
+    // itemStatus.value = "";
 }
 
 }
@@ -107,7 +107,7 @@ const scockdataDisplay = () => {
                                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                                         </svg>
                                     </button>
-                                    <button class="btn-icon danger" title="Delete">
+                                    <button class="btn-icon danger" title="Delete" onclick="Deleter('${i}')">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
                                             stroke="currentColor" stroke-width="2">
                                             <polyline points="3 6 5 6 21 6"></polyline>
@@ -127,12 +127,22 @@ const scockdataDisplay = () => {
 
 }
 
-conformModalBtn.addEventListener("click", inserterdataInArray);
+saveItemBtn.addEventListener("click", inserterdataInArray);
 
 
-const Deleter = () => {
+const Deleter = (item) => {
 
-    
+    if (confirm("Do you want to delete it?")) {
+
+        allStockDataArray.splice(item, 1);
+        
+    }
+
+    localStorage.setItem("allScockData", JSON.stringify(allStockDataArray));
+
+
+    scockdataDisplay();
+
 
 }
 
