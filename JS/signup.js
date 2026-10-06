@@ -10,7 +10,6 @@ const submitBtn = document.querySelector(".btn-submit");
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
-
 const validation = () => {
 
     if (fullName.value.length < 3) {
