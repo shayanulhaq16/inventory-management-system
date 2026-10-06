@@ -113,6 +113,8 @@ const allSalesDisplay = () => {
         console.log(allSalesData);
     }
 
+    tBody.innerHTML = "";
+
     for (let i = 0; i < allSalesData.length; i++) {
 
         let itration = allSalesData[i];
