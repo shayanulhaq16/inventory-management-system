@@ -1,3 +1,7 @@
+import supabase from "./credentials.js";
+
+
+
 
 const fullName = document.getElementById("fullname");
 const email = document.getElementById("email");
@@ -10,7 +14,7 @@ const submitBtn = document.querySelector(".btn-submit");
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 
-const validation = () => {
+const validation = async () => {
 
     if (fullName.value.length < 3) {
 
@@ -29,34 +33,34 @@ const validation = () => {
             title: "Oops...",
             text: "Please Enter a valid email!",
         });
-        
+
         return;
-        
+
     }
     else if (password.value.length < 8) {
-        
-        
+
+
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Please Enter a valid password!",
         });
         return;
-        
+
     }
     else if (password.value !== confirmPassword.value) {
-        
-        
+
+
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Please Enter a same password to verify!",
         });
         return;
-        
+
     }
     else if (checkbox.checked === false) {
-        
+
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -66,8 +70,25 @@ const validation = () => {
 
     }
 
+    const { data, error } = await supabase.auth.signUp({
+        email: email.value,
+        password: password.value,
+    });
+    if (error) {
 
-    window.location.replace("HTML/dashboard.html");
+        Swal.fire({
+           icon: "error",
+           title: "Oops...",
+           text: `${error.message}`,
+       });
+       
+    }else{
+        
+        window.location.replace("HTML/dashboard.html");
+
+    }
+
+
 }
 
 submitBtn.addEventListener("click", validation)
