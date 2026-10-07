@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,16 +9,21 @@
     <!-- Clean Modern Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
 
     <div class="signup-container">
         <!-- Header -->
         <div class="signup-header">
             <div class="brand-logo">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
                 </svg>
@@ -27,39 +33,41 @@
         </div>
 
         <!-- Form -->
-        <form class="signup-form" id="signupForm">
+        <form class="signup-form" id="signupForm" >
             <!-- Full Name -->
             <div class="form-group">
                 <label for="fullname">Full Name</label>
-                <input type="text" id="fullname" placeholder="John Doe" required>
+                <input type="text" id="fullname" placeholder="John Doe">
             </div>
 
             <!-- Email Address -->
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="name@company.com" required>
+                <input type="email" id="email" placeholder="name@company.com">
             </div>
 
             <!-- Password -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="At least 8 characters" required>
+                <input type="password" id="password" placeholder="At least 8 characters">
             </div>
 
             <!-- Confirm Password -->
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+                <input type="password" id="confirmPassword" placeholder="Re-enter password">
             </div>
 
             <!-- Terms Checkbox -->
             <div class="form-checkbox">
-                <input type="checkbox" id="terms" required>
+                <input type="checkbox" id="terms">
                 <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
             </div>
 
-            <!-- Submit Button -->
-            <button type="button" class="btn-submit">Sign Up</button>
+            <!-- Submit Button (Added id and changed type to submit) -->
+            <button type="submit" class="btn-submit" id="signupBtn">
+                <span class="btn-text">Sign Up</span>
+            </button>
         </form>
 
         <!-- Footer -->
@@ -73,4 +81,5 @@
     <script type="module" src="JS/signup.js"></script>
 
 </body>
+
 </html>
