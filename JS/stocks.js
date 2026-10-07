@@ -150,5 +150,5 @@ const Deleter = (item) => {
 
 
 
-// Delete ka logic
+// Delete ki logic abhi to laga di ha baad me (eventlistner) laga ker profissional karni ha
 // edit ki logic
