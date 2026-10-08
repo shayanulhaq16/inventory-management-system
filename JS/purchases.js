@@ -56,7 +56,7 @@ const inserterDataInArray = () => {
 
             totalPurchasesDataArray.push(obj);
 
-            console.log(totalPurchasesDataArray);
+            localStorage.setItem("Purchases Data", JSON.stringify(totalPurchasesDataArray));
 
             dataDisplay();
             
@@ -109,8 +109,16 @@ const dataDisplay = () => {
         month = "Dec"
     }
 
-    for (let i = 0; i < totalPurchasesDataArray.length; i++) {
-        const element = totalPurchasesDataArray[i];
+    
+    let purhasesdatafromlocalstorage = localStorage.getItem("Purchases Data");
+    if (purhasesdatafromlocalstorage) {
+        totalPurchasesDataArray = JSON.parse(purhasesdatafromlocalstorage);
+    }
+
+    tBody = "";
+
+    for (let i = 0; i < purhasesdatafromlocalstorage.length; i++) {
+        const element = purhasesdatafromlocalstorage[i];
         
         tBody.innerHTML += `<tr>
                                 <td class="sku-code">#PO-${element.poNumber}</td>
@@ -141,3 +149,5 @@ purchaseForm.addEventListener("submit", (e) => {
     modalCloser();
 
 });
+
+
