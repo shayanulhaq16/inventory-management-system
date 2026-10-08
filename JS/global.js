@@ -54,12 +54,7 @@ const validation = async (name, email, password, conformPassword, checkbox) => {
         signupBtn.innerHTML = `<span class="btn-text">Sign Up</span>`;
 
 
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: error.message,
-        });
-
+       errorShow(error.message);
     }
 
     else {
