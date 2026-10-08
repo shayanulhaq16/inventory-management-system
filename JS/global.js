@@ -1,49 +1,37 @@
 import supabase from "./credentials.js";
 
 
+const errorShow = (errorText) => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: errorText,
+    });
+}
+
 
 const validation = async (name, email, password, conformPassword, checkbox) => {
-    
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (name.length < 3) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid name!",
-        });
+        errorShow("Please Enter a valid name!")
         return;
     }
     else if (!emailRegex.test(email)) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid email!",
-        });
+        errorShow("Please Enter a valid email!");
         return;
     }
     else if (password.length < 8) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid password!",
-        });
+        errorShow("Please Enter a valid password!");
         return;
     }
     else if (password !== conformPassword) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a same password to verify!",
-        });
+        errorShow("Please Enter a same password to verify!")
         return;
     }
     else if (!checkbox) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please read our terms and condition then agree!",
-        });
+        errorShow("Please read our terms and condition then agree!")
         return;
     }
 
@@ -86,7 +74,7 @@ const validation = async (name, email, password, conformPassword, checkbox) => {
             window.location.replace("../HTML/dashboard.html")
         }, 1500)
 
-       
+
 
 
     }
