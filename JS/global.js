@@ -1,50 +1,52 @@
 import supabase from "./credentials.js";
 
 
+const errorShow = (errorText) => {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: errorText,
+    });
+}
+
 
 const validation = async (name, email, password, conformPassword, checkbox) => {
-    
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (name.length < 3) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid name!",
-        });
-        return;
+    if (name !== false) {
+        if (name.trim().length < 3) {
+            errorShow("Please Enter a valid name!")
+            return;
+        }
     }
-    else if (!emailRegex.test(email)) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid email!",
-        });
-        return;
+
+    if (email !== false) {
+        if (!emailRegex.test(email)) {
+            errorShow("Please Enter a valid email!");
+            return;
+        }
     }
-    else if (password.length < 8) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a valid password!",
-        });
-        return;
+
+    if (password !== false) {
+        if (password.length < 8) {
+            errorShow("Please Enter a valid password!");
+            return;
+        }
     }
-    else if (password !== conformPassword) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please Enter a same password to verify!",
-        });
-        return;
+
+    if(conformPassword !== false){
+        if (password !== conformPassword) {
+            errorShow("Please Enter a same password to verify!")
+            return;
+        }
     }
-    else if (!checkbox) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Please read our terms and condition then agree!",
-        });
-        return;
+
+    if (checkbox !== false) {
+        if (!checkbox) {
+            errorShow("Please read our terms and condition then agree!")
+            return;
+        }
     }
 
     // Loading State
@@ -66,12 +68,7 @@ const validation = async (name, email, password, conformPassword, checkbox) => {
         signupBtn.innerHTML = `<span class="btn-text">Sign Up</span>`;
 
 
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: error.message,
-        });
-
+        errorShow(error.message);
     }
 
     else {
@@ -86,7 +83,7 @@ const validation = async (name, email, password, conformPassword, checkbox) => {
             window.location.replace("../HTML/dashboard.html")
         }, 1500)
 
-       
+
 
 
     }
