@@ -1,4 +1,3 @@
-
 import validation from "./global.js"
 
 const fullName = document.getElementById("fullname");
