@@ -163,6 +163,19 @@ body {
     padding: 0 32px;
 }
 
+.topbar-input-container{
+    display: flex;
+    gap: 15px;
+}
+
+#menuBtn{
+    display: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    width: 35px;
+    height: 44px;
+}
+
 .search-box {
     display: flex;
     align-items: center;
@@ -171,7 +184,7 @@ body {
     border: 1px solid var(--border-color);
     padding: 8px 14px;
     border-radius: var(--radius-md);
-    width: 320px;
+    width: 350px;
     color: var(--text-muted);
 }
 
