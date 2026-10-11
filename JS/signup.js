@@ -70,8 +70,7 @@ signupForm.addEventListener("submit", async (e) => {
         
     }
     catch (error) {
-        console.log("Success");
-        
+
         errorShow("Something went wrong!")
     }
 
