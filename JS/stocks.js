@@ -32,6 +32,12 @@ const itemStatus =  document.getElementById("itemStatus");
 
 const saveItemBtn = document.querySelector(".btn-primary-modal");
 
+const userContainer = document.querySelector(".user-container");
+const userLogo = document.querySelector(".avatar");
+
+let flagForUserInfo = false;
+
+
 
 
 let allStockDataArray = [];
@@ -159,7 +165,9 @@ document.addEventListener("click", (event) => {
     // menuBtn.contains() checks if the click happened inside the menu button
     if (
         !sidebarContainer.contains(event.target) &&
-        !menuBtn.contains(event.target)
+        !menuBtn.contains(event.target) &&
+        !userLogo.contains(event.target) &&
+        !userContainer.contains(event.target)
     ) {
 
         // Show the menu button so the user can open the sidebar again
@@ -167,6 +175,9 @@ document.addEventListener("click", (event) => {
 
         // Hide the sidebar because the user clicked outside it
         sidebarContainer.style.display = "none";
+
+        userContainer.classList.remove("user-container-active");
+        flagForUserInfo = false;
     }
 });
 
@@ -184,6 +195,15 @@ menuBtn.addEventListener("click", (event) => {
 });
 
 
+userLogo.addEventListener("click", () => {
+    if (flagForUserInfo === false) {
+        userContainer.classList.add("user-container-active");
+        flagForUserInfo = true;
+    } else {
+        userContainer.classList.remove("user-container-active");
+        flagForUserInfo = false;
+    }
+})
 
 
 
