@@ -18,11 +18,19 @@ resetPasswordForm.addEventListener("submit", async (e) => {
     if (newPassword.value.trim().length < 8) {
 
         errorShow("Please! Enter a valid password, You need to enter at least 8 letters.")
+
+        submitBtn.innerHTML = `Reset Password`;
+        submitBtn.disabled = false;
+
         return;
     }
     else if (confirmNewPassword.value.trim() !== newPassword.value.trim()) {
 
         errorShow("Enter The Same password.")
+
+        submitBtn.innerHTML = `Reset Password`;
+        submitBtn.disabled = false;
+
         return;
     }
 
