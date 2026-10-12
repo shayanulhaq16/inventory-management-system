@@ -5,6 +5,9 @@ const menuBtn = document.querySelector("#menuBtn");
 const userContainer = document.querySelector(".user-container");
 const userLogo = document.querySelector(".avatar");
 
+let flagForUserInfo = false;
+
+
 // Run this function whenever the user clicks anywhere on the page
 document.addEventListener("click", (event) => {
 
@@ -24,7 +27,10 @@ document.addEventListener("click", (event) => {
 
         // Hide the sidebar because the user clicked outside it
         sidebarContainer.style.display = "none";
-            userContainer.classList.remove("user-container-active");
+
+
+        userContainer.classList.remove("user-container-active");
+        flagForUserInfo = false;
     }
 
 });
@@ -42,14 +48,12 @@ menuBtn.addEventListener("click", (event) => {
     sidebarContainer.style.display = "flex";
 });
 
-let count = 0;
-
 userLogo.addEventListener("click", () => {
-    if (count === 0) {
+    if (flagForUserInfo === false) {
         userContainer.classList.add("user-container-active");
-        count++;
+        flagForUserInfo = true;
     } else {
         userContainer.classList.remove("user-container-active");
-        count--;
+        flagForUserInfo = false;
     }
 })
