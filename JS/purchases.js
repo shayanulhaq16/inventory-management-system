@@ -1,3 +1,6 @@
+import { errorShow } from "./global.js";
+import supabase from "./credentials.js";
+
 const modal = document.getElementById("purchaseModal");
 const newPurchasesBtn = document.querySelector(".btn-primary");
 
@@ -208,3 +211,30 @@ userLogo.addEventListener("click", () => {
         flagForUserInfo = false;
     }
 })
+
+
+const logoElementOnCard = document.getElementById("logo");
+const nameElementOnCard = document.getElementById("name");
+const emailElementOnCard = document.getElementById("email");
+
+async function  userinfo() {
+    
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if(!user || error){
+        errorShow(error);
+    }
+    else{
+
+        // It is to be showed on dashboard not inside the user info card
+        userLogo.innerHTML =  user.identities[0].identity_data.full_name[0];
+
+        logoElementOnCard.innerHTML =  user.identities[0].identity_data.full_name[0];
+        nameElementOnCard.innerHTML = user.identities[0].identity_data.full_name;
+        emailElementOnCard.innerHTML = user.identities[0].email
+
+    }
+
+}
+
+userinfo();
