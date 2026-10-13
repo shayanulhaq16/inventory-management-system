@@ -58,16 +58,26 @@ body {
 
 /* --- SIDEBAR --- */
 .sidebar {
-    width: 240px;
+    width: 0px;
     background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px 16px;
+    padding: 24px 0px;
     position: sticky;
     top: 0;
+    left: 0;
+    overflow: hidden;
     height: 100vh;
+    z-index: 1000;
+    transition: all 1s ease;
+}
+
+.sidebar.open{
+    width: 240px;
+    border-right: 1px solid var(--border-color);
+    padding: 24px 16px;
+    
 }
 
 .sidebar-header {
@@ -174,7 +184,6 @@ body {
 }
 
 #menuBtn{
-    display: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
     width: 35px;

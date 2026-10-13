@@ -59,19 +59,35 @@ body {
 /* --- SIDEBAR --- */
 
 
-
 .sidebar {
-    width: 240px;
+    /* Base configuration stays sticky */
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
     background-color: var(--sidebar-bg);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px 16px;
-    position: sticky;
-    top: 0;
-    height: 100vh;
+    z-index: 1000;
+
+    /* FIX: Collapse width, padding, and border when closed */
+    width: 0;
+    padding: 24px 0; /* Keep vertical padding, zero out horizontal */
+    border-right: 0 solid transparent;
+    overflow: hidden; /* Hides internal text/links when width is 0 */
+    
+    /* Smooth collapse animation */
+    transition: width 1s ease, padding 1s ease, border-color 1s ease;
 }
+
+.sidebar.open {
+    width: 240px;
+    padding: 24px 16px;
+    border-right: 1px solid var(--border-color);
+}
+
 
 .sidebar-header {
     display: flex;
@@ -176,7 +192,6 @@ body {
 }
 
 #menuBtn{
-    display: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
     width: 35px;
