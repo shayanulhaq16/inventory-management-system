@@ -181,7 +181,7 @@ document.addEventListener("click", (event) => {
         menuBtn.style.display = "block";
 
         // Hide the sidebar because the user clicked outside it
-        sidebarContainer.style.display = "none";
+        sidebarContainer.classList.remove("open");
 
         userContainer.classList.remove("user-container-active");
         flagForUserInfo = false;
@@ -197,8 +197,7 @@ menuBtn.addEventListener("click", (event) => {
     // Hide the menu button when opening the sidebar
     menuBtn.style.display = "none";
 
-    // Show the sidebar using flex layout
-    sidebarContainer.style.display = "flex";
+    sidebarContainer.classList.add("open");
 });
 
 

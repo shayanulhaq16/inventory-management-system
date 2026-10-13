@@ -178,9 +178,8 @@ document.addEventListener("click", (event) => {
         // Show the menu button so the user can open the sidebar again
         menuBtn.style.display = "block";
 
-        // Hide the sidebar because the user clicked outside it
-        sidebarContainer.style.display = "none";
-
+        sidebarContainer.classList.remove("open");
+        
         userContainer.classList.remove("user-container-active");
         flagForUserInfo = false;
     }
@@ -188,15 +187,14 @@ document.addEventListener("click", (event) => {
 
 // Run this function whenever the user clicks the menu button
 menuBtn.addEventListener("click", (event) => {
-
+    
     // Stop this click from reaching the document click handler
     event.stopPropagation();
-
+    
     // Hide the menu button when opening the sidebar
     menuBtn.style.display = "none";
 
-    // Show the sidebar using flex layout
-    sidebarContainer.style.display = "flex";
+    sidebarContainer.classList.add("open");
 });
 
 

@@ -156,7 +156,7 @@ let flagForUserInfo = false;
 
 // Run this function whenever the user clicks anywhere on the page
 document.addEventListener("click", (event) => {
-
+    
     // event.target tells us which element the user actually clicked
     // .contains() checks if that clicked element is inside the sidebar
     // ! means NOT, so this checks if the click happened outside the sidebar
@@ -167,13 +167,12 @@ document.addEventListener("click", (event) => {
         !userLogo.contains(event.target) &&
         !userContainer.contains(event.target)
     ) {
-
+        
         // Show the menu button so the user can open the sidebar again
         menuBtn.style.display = "block";
-
-        // Hide the sidebar because the user clicked outside it
-        sidebarContainer.style.display = "none";
-
+        
+        sidebarContainer.classList.remove("open");
+        
         userContainer.classList.remove("user-container-active");
         flagForUserInfo = false;
     }
@@ -188,8 +187,7 @@ menuBtn.addEventListener("click", (event) => {
     // Hide the menu button when opening the sidebar
     menuBtn.style.display = "none";
 
-    // Show the sidebar using flex layout
-    sidebarContainer.style.display = "flex";
+    sidebarContainer.classList.add("open");
 });
 
 userLogo.addEventListener("click", () => {
