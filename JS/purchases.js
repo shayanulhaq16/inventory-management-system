@@ -41,20 +41,10 @@ const purchaseStatus = document.getElementById("purchaseStatus");
 
 const purchaseForm = document.getElementById("purchaseForm");
 
-let totalPurchasesDataArray = [];
 
 const inserterDataInArray = async () => {
 
     let obj = {
-        supplier: supplierName.value,
-        poNumber: poNumber.value,
-        item: purchaseItem.value,
-        quantity: purchasedQuantity.value,
-        cost: purchaseCost.value,
-        status: purchaseStatus.value
-    }
-
-    let obj_supabase = {
         po_number: poNumber.value,
         supplier_name: supplierName.value,
         product_name: purchaseItem.value,
@@ -66,7 +56,7 @@ const inserterDataInArray = async () => {
 
     const { error } = await supabase
         .from('purchases')
-        .insert(obj_supabase)
+        .insert(obj)
 
     if (error) {
         errorShow(error.message);
@@ -78,21 +68,6 @@ const inserterDataInArray = async () => {
             icon: "success",
         })
     }
-
-    if (supplierName.value && poNumber.value && purchaseItem.value
-        && purchasedQuantity.value && purchaseCost.value && purchaseStatus.value) {
-
-        totalPurchasesDataArray.push(obj);
-
-        localStorage.setItem("Purchases Data", JSON.stringify(totalPurchasesDataArray));
-
-        dataDisplay();
-
-    }
-
-
-
-
 }
 
 const tBody = document.querySelector("tbody");
@@ -152,10 +127,7 @@ const dataDisplay = async () => {
         console.log(data);
 
 
-        // let purhasesdatafromlocalstorage = localStorage.getItem("Purchases Data");
-        // if (purhasesdatafromlocalstorage) {
-        //     totalPurchasesDataArray = JSON.parse(purhasesdatafromlocalstorage);
-        // }
+
 
         tBody.innerHTML = "";
 
@@ -168,20 +140,22 @@ const dataDisplay = async () => {
             <td>${element.product_name}</td>
             <td>${element.quantity}</td>
             <td><strong>$${element.total_price}</strong></td>
-    <td>${element.created_at}</td>
-    <td><span class="badge status-${element.product_status}">${element.product_status}</span></td>
-                                <td class="action-buttons">
-                                    <button class="btn-icon" title="View Details">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                        </button>
-                                </td>
+            <td>${element.created_at}</td>
+            <td><span class="badge status-${element.product_status}">${element.product_status}</span></td>
+            <td class="action-buttons">
+            <button class="btn-icon" title="View Details">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </button>
+            </td>
                             </tr>
-        
-        `
+                            
+                            `
         }
 
     }
 }
+
+dataDisplay();
 
 purchaseForm.addEventListener("submit", async (e) => {
 
@@ -190,12 +164,12 @@ purchaseForm.addEventListener("submit", async (e) => {
 
 
     inserterDataInArray();
-    
+
+    dataDisplay();
 
     modalCloser();
 });
 
-dataDisplay();
 
 
 const sidebarContainer = document.querySelector(".sidebar");
