@@ -42,7 +42,8 @@ const tBody = document.querySelector("tbody");
 let allSalesData = [];
 
 
-conformSaleBtn.addEventListener("click", async () => {
+conformSaleBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
     if (customerName.value && invoiceNumber.value && saleItem.value &&
         saleQuantity.value && saleTotalAmount.value && saleStatus.value) {
@@ -65,6 +66,31 @@ conformSaleBtn.addEventListener("click", async () => {
         modalCloser();
 
         allSalesDisplay();
+    }
+
+    let obj = {
+        invoice_number: invoiceNumber.value,
+        customer_name: customerName.value,
+        product_name: saleItem.value,
+        quantity: saleQuantity.value,
+        price: (saleTotalAmount.value / saleQuantity.value).toFixed(2),
+        total_price: saleTotalAmount.value,
+        product_status: saleStatus.value
+    }
+    
+    const { error } = await supabase
+        .from('sales')
+        .insert(obj)
+        
+        if (error) {
+            errorShow(error.message);
+        }
+        else {
+            Swal.fire({
+                title: "Account matched!",
+            text: "Your Data Has Been Added Successfully!",
+            icon: "success",
+        })
     }
 
 
