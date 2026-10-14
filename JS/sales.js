@@ -42,7 +42,7 @@ const tBody = document.querySelector("tbody");
 let allSalesData = [];
 
 
-conformSaleBtn.addEventListener("click", () => {
+conformSaleBtn.addEventListener("click", async () => {
 
     if (customerName.value && invoiceNumber.value && saleItem.value &&
         saleQuantity.value && saleTotalAmount.value && saleStatus.value) {
@@ -56,6 +56,8 @@ conformSaleBtn.addEventListener("click", () => {
             status: saleStatus.value
         }
 
+        
+
         allSalesData.push(data);
 
         localStorage.setItem("AllSalesData", JSON.stringify(allSalesData));
@@ -64,6 +66,8 @@ conformSaleBtn.addEventListener("click", () => {
 
         allSalesDisplay();
     }
+
+
 
 });
 
@@ -156,7 +160,7 @@ let flagForUserInfo = false;
 
 // Run this function whenever the user clicks anywhere on the page
 document.addEventListener("click", (event) => {
-    
+
     // event.target tells us which element the user actually clicked
     // .contains() checks if that clicked element is inside the sidebar
     // ! means NOT, so this checks if the click happened outside the sidebar
@@ -167,12 +171,12 @@ document.addEventListener("click", (event) => {
         !userLogo.contains(event.target) &&
         !userContainer.contains(event.target)
     ) {
-        
+
         // Show the menu button so the user can open the sidebar again
         menuBtn.style.display = "block";
-        
+
         sidebarContainer.classList.remove("open");
-        
+
         userContainer.classList.remove("user-container-active");
         flagForUserInfo = false;
     }
@@ -197,7 +201,7 @@ userLogo.addEventListener("click", () => {
 
     } else {
         userContainer.classList.remove("user-container-active");
-        
+
         flagForUserInfo = false;
 
     }

@@ -43,7 +43,7 @@ const purchaseForm = document.getElementById("purchaseForm");
 
 let totalPurchasesDataArray = [];
 
-const inserterDataInArray = () => {
+const inserterDataInArray = async () => {
 
     let obj = {
         supplier: supplierName.value,
@@ -54,22 +54,50 @@ const inserterDataInArray = () => {
         status: purchaseStatus.value
     }
 
+    let obj_supabase = {
+        po_number: poNumber.value,
+        supplier_name: supplierName.value,
+        product_name: purchaseItem.value,
+        quantity: purchasedQuantity.value,
+        price: (purchaseCost.value / purchasedQuantity.value).toFixed(2),
+        total_price: purchaseCost.value,
+        product_status: purchaseStatus.value
+    }
+
+    const { error } = await supabase
+        .from('purchases')
+        .insert(obj_supabase)
+
+    if (error) {
+        errorShow(error.message);
+    }
+    else {
+        Swal.fire({
+            title: "Account matched!",
+            text: "Your Data Has Been Added Successfully!",
+            icon: "success",
+        })
+    }
+
     if (supplierName.value && poNumber.value && purchaseItem.value
         && purchasedQuantity.value && purchaseCost.value && purchaseStatus.value) {
 
-            totalPurchasesDataArray.push(obj);
+        totalPurchasesDataArray.push(obj);
 
-            localStorage.setItem("Purchases Data", JSON.stringify(totalPurchasesDataArray));
+        localStorage.setItem("Purchases Data", JSON.stringify(totalPurchasesDataArray));
 
-            dataDisplay();
-            
+        dataDisplay();
+
     }
+
+
+
 
 }
 
 const tBody = document.querySelector("tbody");
 
-const dataDisplay = () => {
+const dataDisplay = async () => {
 
     let date = new Date();
 
@@ -112,47 +140,62 @@ const dataDisplay = () => {
         month = "Dec"
     }
 
-    
-    let purhasesdatafromlocalstorage = localStorage.getItem("Purchases Data");
-    if (purhasesdatafromlocalstorage) {
-        totalPurchasesDataArray = JSON.parse(purhasesdatafromlocalstorage);
+
+    const { data, error } = await supabase
+        .from('purchases')
+        .select()
+
+    if (error) {
+        errorShow(error.message)
     }
+    else {
+        console.log(data);
 
-    tBody = "";
 
-    for (let i = 0; i < purhasesdatafromlocalstorage.length; i++) {
-        const element = purhasesdatafromlocalstorage[i];
-        
-        tBody.innerHTML += `<tr>
-                                <td class="sku-code">#PO-${element.poNumber}</td>
-                                <td class="product-name"><strong>${element.supplier}</strong></td>
-                                <td>${element.item}</td>
-                                <td>${element.quantity}</td>
-                                <td><strong>$${element.cost}</strong></td>
-                                <td>${month} ${date.getDay()}, ${date.getFullYear()}</td>
-                                <td><span class="badge status-${element.status}">${element.status}</span></td>
+        // let purhasesdatafromlocalstorage = localStorage.getItem("Purchases Data");
+        // if (purhasesdatafromlocalstorage) {
+        //     totalPurchasesDataArray = JSON.parse(purhasesdatafromlocalstorage);
+        // }
+
+        tBody.innerHTML = "";
+
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+
+            tBody.innerHTML += `<tr>
+            <td class="sku-code">#PO-${element.po_number}</td>
+            <td class="product-name"><strong>${element.supplier_name}</strong></td>
+            <td>${element.product_name}</td>
+            <td>${element.quantity}</td>
+            <td><strong>$${element.total_price}</strong></td>
+    <td>${element.created_at}</td>
+    <td><span class="badge status-${element.product_status}">${element.product_status}</span></td>
                                 <td class="action-buttons">
                                     <button class="btn-icon" title="View Details">
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                    </button>
+                                        </button>
                                 </td>
                             </tr>
         
         `
-    }
+        }
 
+    }
 }
 
-purchaseForm.addEventListener("submit", (e) => {
+purchaseForm.addEventListener("submit", async (e) => {
 
     // Ye form ke default behaviour (page ko refresh kerna) ko rekta ha
     e.preventDefault();
 
-    inserterDataInArray();
-    modalCloser();
 
+    inserterDataInArray();
+    
+
+    modalCloser();
 });
 
+dataDisplay();
 
 
 const sidebarContainer = document.querySelector(".sidebar");
@@ -216,19 +259,19 @@ const logoElementOnCard = document.getElementById("logo");
 const nameElementOnCard = document.getElementById("name");
 const emailElementOnCard = document.getElementById("email");
 
-async function  userinfo() {
-    
+async function userinfo() {
+
     const { data: { user }, error } = await supabase.auth.getUser();
 
-    if(!user || error){
+    if (!user || error) {
         errorShow(error);
     }
-    else{
+    else {
 
         // It is to be showed on dashboard not inside the user info card
-        userLogo.innerHTML =  user.identities[0].identity_data.full_name[0];
+        userLogo.innerHTML = user.identities[0].identity_data.full_name[0];
 
-        logoElementOnCard.innerHTML =  user.identities[0].identity_data.full_name[0];
+        logoElementOnCard.innerHTML = user.identities[0].identity_data.full_name[0];
         nameElementOnCard.innerHTML = user.identities[0].identity_data.full_name;
         emailElementOnCard.innerHTML = user.identities[0].email
 
