@@ -43,7 +43,7 @@ const purchaseForm = document.getElementById("purchaseForm");
 
 
 const inserterDataInArray = async () => {
-
+    
     let obj = {
         po_number: poNumber.value,
         supplier_name: supplierName.value,
@@ -53,17 +53,17 @@ const inserterDataInArray = async () => {
         total_price: purchaseCost.value,
         product_status: purchaseStatus.value
     }
-
+    
     const { error } = await supabase
         .from('purchases')
         .insert(obj)
-
-    if (error) {
-        errorShow(error.message);
-    }
-    else {
-        Swal.fire({
-            title: "Account matched!",
+        
+        if (error) {
+            errorShow(error.message);
+        }
+        else {
+            Swal.fire({
+                title: "Account matched!",
             text: "Your Data Has Been Added Successfully!",
             icon: "success",
         })
@@ -74,51 +74,9 @@ const tBody = document.querySelector("tbody");
 
 const dataDisplay = async () => {
 
-    let date = new Date();
-
-    let month = "";
-
-    if (date.getMonth() === 0) {
-        month = "Jan"
-    }
-    else if (date.getMonth() === 1) {
-        month = "Feb"
-    }
-    else if (date.getMonth() === 2) {
-        month = "Mar"
-    }
-    else if (date.getMonth() === 3) {
-        month = "Apr"
-    }
-    else if (date.getMonth() === 4) {
-        month = "May"
-    }
-    else if (date.getMonth() === 5) {
-        month = "Jun"
-    }
-    else if (date.getMonth() === 6) {
-        month = "Jul"
-    }
-    else if (date.getMonth() === 7) {
-        month = "Aug"
-    }
-    else if (date.getMonth() === 8) {
-        month = "Sep"
-    }
-    else if (date.getMonth() === 9) {
-        month = "Oct"
-    }
-    else if (date.getMonth() === 10) {
-        month = "Nav"
-    }
-    else if (date.getMonth() === 11) {
-        month = "Dec"
-    }
-
-
     const { data, error } = await supabase
-        .from('purchases')
-        .select()
+    .from('purchases')
+    .select()
 
     if (error) {
         errorShow(error.message)
@@ -128,7 +86,7 @@ const dataDisplay = async () => {
 
 
 
-
+        
         tBody.innerHTML = "";
 
         for (let i = 0; i < data.length; i++) {
@@ -140,33 +98,33 @@ const dataDisplay = async () => {
             <td>${element.product_name}</td>
             <td>${element.quantity}</td>
             <td><strong>$${element.total_price}</strong></td>
-            <td>${element.created_at}</td>
+            <td>${element.created_at.slice(0, 10)}</td>
             <td><span class="badge status-${element.product_status}">${element.product_status}</span></td>
             <td class="action-buttons">
             <button class="btn-icon" title="View Details">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
             </button>
             </td>
-                            </tr>
+            </tr>
                             
                             `
-        }
-
-    }
+                        }
+                        
+                    }
 }
 
 dataDisplay();
 
 purchaseForm.addEventListener("submit", async (e) => {
-
+    
     // Ye form ke default behaviour (page ko refresh kerna) ko rekta ha
     e.preventDefault();
-
-
+    
+    
     inserterDataInArray();
-
+    
     dataDisplay();
-
+    
     modalCloser();
 });
 
