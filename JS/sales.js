@@ -45,31 +45,52 @@ conformSaleBtn.addEventListener("click", async (e) => {
 
     if (!customerName.value) {
 
-        // errorShow("Enter The Customer Name!")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter The Customer Name!",
+            target: document.getElementById('salesModal')
+        });
         return;
 
     } else if (!invoiceNumber.value) {
 
-        // errorShow("Enter Invoice Number!")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter Invoice Number!",
+            target: document.getElementById('salesModal')
+        });
         return;
 
     } else if (!saleItem.value) {
 
-        // errorShow("Enter Sale Quantity!")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Select Sold Item!",
+            target: document.getElementById('salesModal')
+        });
         return;
 
     } else if (!saleQuantity.value) {
 
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Select Sale Item Quantity!",
+            target: document.getElementById('salesModal')
+        });
         return;
 
     } else if (!saleTotalAmount.value) {
 
-        // errorShow("Enter Total Amount Of Sale!");
-        return;
-
-    } else if (!saleStatus.value) {
-
-        // errorShow("Enter Sale Payment Condition or Status!")
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter Total Amount Of Sale!",
+            target: document.getElementById('salesModal')
+        });
         return;
 
     }
