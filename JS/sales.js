@@ -40,7 +40,39 @@ const conformSaleBtn = document.querySelector(".btn-sales-modal");
 const tBody = document.querySelector("tbody");
 
 conformSaleBtn.addEventListener("click", async (e) => {
+
     e.preventDefault();
+
+    if (!customerName.value) {
+
+        // errorShow("Enter The Customer Name!")
+        return;
+
+    } else if (!invoiceNumber.value) {
+
+        // errorShow("Enter Invoice Number!")
+        return;
+
+    } else if (!saleItem.value) {
+
+        // errorShow("Enter Sale Quantity!")
+        return;
+
+    } else if (!saleQuantity.value) {
+
+        return;
+
+    } else if (!saleTotalAmount.value) {
+
+        // errorShow("Enter Total Amount Of Sale!");
+        return;
+
+    } else if (!saleStatus.value) {
+
+        // errorShow("Enter Sale Payment Condition or Status!")
+        return;
+
+    }
 
     let obj = {
         invoice_number: Number(invoiceNumber.value),
@@ -52,9 +84,7 @@ conformSaleBtn.addEventListener("click", async (e) => {
         product_status: saleStatus.value
     }
 
-    modalCloser();
 
-    allSalesDisplay();
 
 
 
@@ -73,7 +103,9 @@ conformSaleBtn.addEventListener("click", async (e) => {
         })
     }
 
+    modalCloser();
 
+    allSalesDisplay();
 
 });
 
@@ -88,7 +120,6 @@ const allSalesDisplay = async () => {
         errorShow(error.message)
     }
     else {
-        console.log(data);
 
         tBody.innerHTML = "";
 
@@ -102,7 +133,7 @@ const allSalesDisplay = async () => {
                                 <td>${itration.product_name}</td>
                                 <td>${itration.quantity}</td>
                                 <td><strong>$${itration.total_price}</strong></td>
-                                <td>${date.getDate()}, ${month}, ${date.getFullYear()}</td>
+                                <td>${itration.created_at.slice(0, 10)}</td>
                                 <td><span class="badge status-${itration.product_status}">${itration.product_status}</span ></td >
         <td class="action-buttons">
             <button class="btn-icon" title="View Details">
@@ -116,93 +147,92 @@ const allSalesDisplay = async () => {
         }
 
     }
+}
 
 
-    allSalesDisplay();
+allSalesDisplay();
 
 
 
-    const sidebarContainer = document.querySelector(".sidebar");
-    const menuBtn = document.querySelector("#menuBtn");
+const sidebarContainer = document.querySelector(".sidebar");
+const menuBtn = document.querySelector("#menuBtn");
 
-    const userContainer = document.querySelector(".user-container");
-    const userLogo = document.querySelector(".avatar");
+const userContainer = document.querySelector(".user-container");
+const userLogo = document.querySelector(".avatar");
 
-    let flagForUserInfo = false;
+let flagForUserInfo = false;
 
-    // Run this function whenever the user clicks anywhere on the page
-    document.addEventListener("click", (event) => {
+// Run this function whenever the user clicks anywhere on the page
+document.addEventListener("click", (event) => {
 
-        // event.target tells us which element the user actually clicked
-        // .contains() checks if that clicked element is inside the sidebar
-        // ! means NOT, so this checks if the click happened outside the sidebar
-        // menuBtn.contains() checks if the click happened inside the menu button
-        if (
-            !sidebarContainer.contains(event.target) &&
-            !menuBtn.contains(event.target) &&
-            !userLogo.contains(event.target) &&
-            !userContainer.contains(event.target)
-        ) {
+    // event.target tells us which element the user actually clicked
+    // .contains() checks if that clicked element is inside the sidebar
+    // ! means NOT, so this checks if the click happened outside the sidebar
+    // menuBtn.contains() checks if the click happened inside the menu button
+    if (
+        !sidebarContainer.contains(event.target) &&
+        !menuBtn.contains(event.target) &&
+        !userLogo.contains(event.target) &&
+        !userContainer.contains(event.target)
+    ) {
 
-            // Show the menu button so the user can open the sidebar again
-            menuBtn.style.display = "block";
+        // Show the menu button so the user can open the sidebar again
+        menuBtn.style.display = "block";
 
-            sidebarContainer.classList.remove("open");
+        sidebarContainer.classList.remove("open");
 
-            userContainer.classList.remove("user-container-active");
-            flagForUserInfo = false;
-        }
-    });
+        userContainer.classList.remove("user-container-active");
+        flagForUserInfo = false;
+    }
+});
 
-    // Run this function whenever the user clicks the menu button
-    menuBtn.addEventListener("click", (event) => {
+// Run this function whenever the user clicks the menu button
+menuBtn.addEventListener("click", (event) => {
 
-        // Stop this click from reaching the document click handler
-        event.stopPropagation();
+    // Stop this click from reaching the document click handler
+    event.stopPropagation();
 
-        // Hide the menu button when opening the sidebar
-        menuBtn.style.display = "none";
+    // Hide the menu button when opening the sidebar
+    menuBtn.style.display = "none";
 
-        sidebarContainer.classList.add("open");
-    });
+    sidebarContainer.classList.add("open");
+});
 
-    userLogo.addEventListener("click", () => {
-        if (flagForUserInfo === false) {
-            userContainer.classList.add("user-container-active");
-            flagForUserInfo = true;
+userLogo.addEventListener("click", () => {
+    if (flagForUserInfo === false) {
+        userContainer.classList.add("user-container-active");
+        flagForUserInfo = true;
 
-        } else {
-            userContainer.classList.remove("user-container-active");
+    } else {
+        userContainer.classList.remove("user-container-active");
 
-            flagForUserInfo = false;
+        flagForUserInfo = false;
 
-        }
-    })
+    }
+})
 
 
-    const nameElementOnCard = document.getElementById("name");
-    const emailElementOnCard = document.getElementById("email");
-    const logoElementOnCard = document.getElementById("logo");
+const nameElementOnCard = document.getElementById("name");
+const emailElementOnCard = document.getElementById("email");
+const logoElementOnCard = document.getElementById("logo");
 
-    async function userInfo() {
-        const { data: { user }, error } = await supabase.auth.getUser();
+async function userInfo() {
+    const { data: { user }, error } = await supabase.auth.getUser();
 
-        if (!user || error) {
-            errorShow(error.message)
-        }
-        else {
+    if (!user || error) {
+        errorShow(error.message)
+    }
+    else {
 
-            // It is to show on dashboard not inside the user card info
-            userLogo.innerHTML = user.identities[0].identity_data.full_name[0];
+        // It is to show on dashboard not inside the user card info
+        userLogo.innerHTML = user.identities[0].identity_data.full_name[0];
 
-            logoElementOnCard.innerHTML = user.identities[0].identity_data.full_name[0];
-            nameElementOnCard.innerHTML = user.identities[0].identity_data.full_name;
-            emailElementOnCard.innerHTML = user.identities[0].email;
-
-        }
-        console.log("Success")
+        logoElementOnCard.innerHTML = user.identities[0].identity_data.full_name[0];
+        nameElementOnCard.innerHTML = user.identities[0].identity_data.full_name;
+        emailElementOnCard.innerHTML = user.identities[0].email;
 
     }
 
-    userInfo();
 }
+
+userInfo();
