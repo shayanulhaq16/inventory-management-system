@@ -29,9 +29,12 @@ create table purchases (
 create table sales (
   id bigint generated always as identity primary key,
   customer_name text not null,
-  phone text not null,
+  invoice_number integer not null,
   product_name text not null,
   quantity integer not null,
+  price integer not null,
+  total_price integer not null,
+  product_status text not null,
   created_at timestamptz not null default now()
 );
 
