@@ -39,9 +39,6 @@ const conformSaleBtn = document.querySelector(".btn-sales-modal");
 
 const tBody = document.querySelector("tbody");
 
-let allSalesData = [];
-
-
 conformSaleBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -54,29 +51,11 @@ conformSaleBtn.addEventListener("click", async (e) => {
         total_price: saleTotalAmount.value,
         product_status: saleStatus.value
     }
-    
-    if (customerName.value && invoiceNumber.value && saleItem.value &&
-        saleQuantity.value && saleTotalAmount.value && saleStatus.value) {
 
-        let data = {
-            cName: customerName.value,
-            invoice: invoiceNumber.value,
-            item: saleItem.value,
-            quantity: saleQuantity.value,
-            amount: saleTotalAmount.value,
-            status: saleStatus.value
-        }
+    modalCloser();
 
+    allSalesDisplay();
 
-
-        allSalesData.push(data);
-
-        localStorage.setItem("AllSalesData", JSON.stringify(allSalesData));
-
-        modalCloser();
-
-        allSalesDisplay();
-    }
 
 
     const { error } = await supabase
@@ -99,53 +78,7 @@ conformSaleBtn.addEventListener("click", async (e) => {
 });
 
 
-const allSalesDisplay = async() => {
-
-    let date = new Date();
-    let month = "";
-
-    if (date.getMonth() === 0) {
-        month = "Jan"
-    }
-    else if (date.getMonth() === 1) {
-        month = "Feb"
-    }
-    else if (date.getMonth() === 2) {
-        month = "Mar"
-    }
-    else if (date.getMonth() === 3) {
-        month = "Apr"
-    }
-    else if (date.getMonth() === 4) {
-        month = "May"
-    }
-    else if (date.getMonth() === 5) {
-        month = "Jun"
-    }
-    else if (date.getMonth() === 6) {
-        month = "Jul"
-    }
-    else if (date.getMonth() === 7) {
-        month = "Aug"
-    }
-    else if (date.getMonth() === 8) {
-        month = "Sep"
-    }
-    else if (date.getMonth() === 9) {
-        month = "Oct"
-    }
-    else if (date.getMonth() === 10) {
-        month = "Nov"
-    }
-    else if (date.getMonth() === 11) {
-        month = "Dec"
-    }
-
-    // let localStorageGetData = localStorage.getItem("AllSalesData");
-    // if (localStorageGetData) {
-    //     allSalesData = JSON.parse(localStorageGetData);
-    //     console.log(allSalesData);
-    // }
+const allSalesDisplay = async () => {
 
     const { data, error } = await supabase
         .from('sales')
@@ -159,20 +92,9 @@ const allSalesDisplay = async() => {
 
         tBody.innerHTML = "";
 
-    //     let obj = {
-    //     invoice_number: invoiceNumber.value,
-    //     customer_name: customerName.value,
-    //     product_name: saleItem.value,
-    //     quantity: saleQuantity.value,
-    //     price: (saleTotalAmount.value / saleQuantity.value).toFixed(2),
-    //     total_price: saleTotalAmount.value,
-    //     product_status: saleStatus.value
-    // }
-
         for (let i = 0; i < data.length; i++) {
 
             let itration = data[i];
-            let status = itration.status;
 
             tBody.innerHTML += `<tr>
                                 <td class="sku-code">#INV-${itration.invoice_number}</td>
