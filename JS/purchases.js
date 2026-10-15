@@ -43,7 +43,7 @@ const purchaseForm = document.getElementById("purchaseForm");
 
 
 const inserterDataInArray = async () => {
-    
+
     let obj = {
         po_number: poNumber.value,
         supplier_name: supplierName.value,
@@ -53,17 +53,17 @@ const inserterDataInArray = async () => {
         total_price: purchaseCost.value,
         product_status: purchaseStatus.value
     }
-    
+
     const { error } = await supabase
         .from('purchases')
         .insert(obj)
-        
-        if (error) {
-            errorShow(error.message);
-        }
-        else {
-            Swal.fire({
-                title: "Account matched!",
+
+    if (error) {
+        errorShow(error.message);
+    }
+    else {
+        Swal.fire({
+            title: "Account matched!",
             text: "Your Data Has Been Added Successfully!",
             icon: "success",
         })
@@ -75,18 +75,14 @@ const tBody = document.querySelector("tbody");
 const dataDisplay = async () => {
 
     const { data, error } = await supabase
-    .from('purchases')
-    .select()
+        .from('purchases')
+        .select()
 
     if (error) {
         errorShow(error.message)
     }
     else {
-        console.log(data);
 
-
-
-        
         tBody.innerHTML = "";
 
         for (let i = 0; i < data.length; i++) {
@@ -108,23 +104,75 @@ const dataDisplay = async () => {
             </tr>
                             
                             `
-                        }
-                        
-                    }
+        }
+
+    }
 }
 
 dataDisplay();
 
 purchaseForm.addEventListener("submit", async (e) => {
-    
+
     // Ye form ke default behaviour (page ko refresh kerna) ko rekta ha
     e.preventDefault();
-    
-    
+
+    if(!supplierName.value) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter The Supplier Name!",
+            target: document.getElementById('purchaseModal')
+        });
+        return;
+
+    } else if (!poNumber.value) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter PO(Purchase Order) Number!",
+            target: document.getElementById('purchaseModal')
+        });
+        return;
+
+    } else if (!purchaseItem.value) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Select Purchases Item!",
+            target: document.getElementById('purchaseModal')
+        });
+        return;
+
+    } else if (!purchasedQuantity.value) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Select Purchase Item Quantity!",
+            target: document.getElementById('purchaseModal')
+        });
+        return;
+
+    } else if (!purchaseCost.value) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Enter Total Amount Of Purchase!",
+            target: document.getElementById('purchaseModal')
+        });
+        return;
+
+    }
+
+
     inserterDataInArray();
-    
+
     dataDisplay();
-    
+
     modalCloser();
 });
 
