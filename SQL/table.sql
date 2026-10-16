@@ -28,12 +28,14 @@ create table purchases (
 -- Har sale ki ek line
 create table sales (
   id bigint generated always as identity primary key,
+  purchase_id BIGINT NOT NULL
+      REFERENCES purchases(id),
   customer_name text not null,
   invoice_number integer not null,
   product_name text not null,
   quantity integer not null,
-  price integer not null,
-  total_price integer not null,
+  price numeric not null,
+  total_price numeric not null,
   product_status text not null,
   created_at timestamptz not null default now()
 );

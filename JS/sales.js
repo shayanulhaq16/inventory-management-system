@@ -95,7 +95,23 @@ conformSaleBtn.addEventListener("click", async (e) => {
 
     }
 
+    const { data, selectingError } = await supabase
+        .from('purchases')
+        .select("id, product_name") 
+        .eq("product_name", saleItem.value) // equal to
+        .limit(1) // just 1
+        .maybeSingle() // into object
+
+        
+        if(selectingError){
+            errorShow(selectingError?.message || "Purchase not found");
+            return;
+        }
+        
+    
+
     let obj = {
+        purchase_id: Number(data.id),
         invoice_number: Number(invoiceNumber.value),
         customer_name: customerName.value,
         product_name: saleItem.value,
@@ -172,6 +188,35 @@ const allSalesDisplay = async () => {
 
 
 allSalesDisplay();
+
+
+const showProductForSale = async () => {
+
+    const { data, error } = await supabase
+        .from('purchases')
+        .select("product_name, quantity")
+        
+        if(error){
+            errorShow(errorShow.message)
+        }
+        else{
+
+            saleItem.innerHTML = `<option value="" disabled selected>Choose product from stock</option>`;
+
+            for (let i = 0; i < data.length; i++) {
+                const element = data[i];
+                
+                saleItem.innerHTML += `<option value="Wireless Mouse">${element.product_name} (${element.quantity} Available)</option>`
+
+            }
+
+            
+            
+        }
+
+}
+
+showProductForSale()
 
 
 
